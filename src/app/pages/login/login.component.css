@@ -1,0 +1,19 @@
+.h2{
+    color: black;
+    font-weight: 700;
+    text-align: center;
+  
+  }.h3{
+  color: black;
+  font-size:15px;
+  font-family:'cursive';
+}
+  .login-container{
+  padding: 30px;
+	min-height:100%;
+
+    width:100%;
+}
+.login-btn{
+    padding: 10px;
+}

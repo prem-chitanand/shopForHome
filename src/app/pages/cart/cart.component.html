@@ -1,0 +1,95 @@
+<h1 class="display-4 mb-5 h"></h1>
+
+<!--Cart Detail Table-->
+<table class="table table-striped text-center">
+  <thead>
+    <tr class="content">
+      <th scope="col" class="content">Picture</th>
+      <th scope="col" class="content">Name</th>
+      <th scope="col" class="content">Price</th>
+      <th scope="col" class="content">Quantity</th>
+      <th scope="col" class="content">total</th>
+      <th scope="col" class="content">status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let productInOrder of productInOrders">
+      <th class="align-middle" scope="row">
+        <a routerLink="/product/{{ productInOrder.productId }}"
+          ><img
+            height="100px"
+            src="{{ productInOrder.productIcon }}"
+            alt="{{ productInOrder.productName }}"
+        /></a>
+      </th>
+      <td class="align-middle">
+        <a routerLink="/product/{{ productInOrder.productId }}">{{
+          productInOrder.productName
+        }}</a>
+      </td>
+      <td class="align-middle">
+        {{ productInOrder.productPrice | currency: "INR":"symbol" }}
+      </td>
+
+      <td class="align-middle">
+        <a (click)="minusOne(productInOrder)"><i class="fa fa-minus"></i></a>
+        <input
+          min="1"
+          id="{{ productInOrder.productId }}"
+          [max]="productInOrder.productStock"
+          [(ngModel)]="productInOrder.count"
+          (change)="onChange(productInOrder)"
+          size="5"
+          type="number"
+          required
+          name="count"
+        />
+        <a (click)="addOne(productInOrder)"> <i class="fa fa-plus"></i></a>
+      </td>
+
+      <td class="align-middle">
+        {{
+          productInOrder.productPrice * productInOrder.count
+            | currency: "INR":"symbol"
+        }}
+      </td>
+      <td class="align-middle">
+        <button class="btn-danger btn-md">
+          <a
+            style="text-decoration: none; color: whitesmoke"
+            (click)="remove(productInOrder)"
+            routerLink="./"
+            >Remove</a
+          >
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="productInOrders?.length > 0; else empty">
+  <select [(ngModel)]="selectedCoupon" name="Coupon" class="form-control">
+    <option>Select Coupon</option>
+    <option *ngFor="let dep of coupon">
+      {{ dep.id }}
+    </option></select
+  ><br />
+  <!--<h2>{{selectedCoupon}}</h2>-->
+  <b
+    ><h5 *ngIf="!selectedCoupon" style="font-weight: bolder; display: inline">
+      Total Amount: {{ total | currency: "INR":"symbol" }}
+    </h5></b
+  >
+  <h5 *ngIf="selectedCoupon" style="font-weight: bolder; display: inline">
+    Total Amount: {{ total - total * 0.5 | currency: "INR":"symbol" }}
+  </h5>
+
+  <button (click)="checkout()" class="btn btn-warning float-right btn-lg">
+    Checkout
+  </button>
+</div>
+<ng-template #empty>
+  <h4 class="text-muted text-center">
+    Cart is empty. Lets go for shopping! :)
+  </h4>
+</ng-template>

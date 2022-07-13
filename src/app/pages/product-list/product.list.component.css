@@ -1,0 +1,14 @@
+.isDisabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+  }
+  .g{
+    font-weight: 500;
+    font-size: 60px;
+    font-family: serif;
+}
+.k{
+    font-size: 15px;
+}
